@@ -29,6 +29,7 @@
 <h4>Display Windows</h4>
 {#if tutorial.enabled}<p>Display windows should be moved to another screen.</p>{/if}
 <p><button onclick={openDisplay}>Open New Display Window</button><!--<button onclick={syncDisplay} id="sync" class:disabled={sync.enabled == true}>Sync All Changes to Display Windows</button>--></p>
+<p><i>Note that for the purposes of development, as the theming for Satellite V5 has not been released, the display uses a generic theme and interface.</i></p>
 {#if tutorial.enabled}<p>New windows are not automatically synced. Sync the windows using the buttons for each section below.</p>{/if}
 <h4>Fullscreen</h4>
 {#if tutorial.enabled}<p>Use the button below to enable fullscreen view on your display windows.</p>{/if}

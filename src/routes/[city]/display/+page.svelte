@@ -22,5 +22,3 @@
 <svelte:head>
     <title>{proccessEventCity(page.params.city)}</title>
 </svelte:head>
-
-<h1>Display Window</h1>

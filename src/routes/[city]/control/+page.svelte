@@ -59,9 +59,9 @@
         position: fixed;
         z-index: 1000;
         transform: translate(-50%, -50%);
-        bottom: -150px;
+        bottom: -550px;
         left: 50%;
-        transition: all 0.3s ease-in-out;
+        transition: all 0.7s ease-in-out;
         background-color: rgb(177, 82, 82);
         box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.237);
         border-radius: 40px;

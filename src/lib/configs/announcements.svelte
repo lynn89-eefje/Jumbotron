@@ -5,11 +5,45 @@
 
     import { sync } from "$lib/sync.svelte.js";
     import { tutorial } from "$lib/sync.svelte.js";
+    import { onMount } from "svelte";
 
     let announcementTitle = $state("");
     let announcementMessage = $state("");
     let eventsTitle = $state("");
     let eventsTime = $state();
+
+    let time = new Date();
+    let placeholderTime = $state("Time"); 
+    //console.log(time.getHours());
+    onMount(function() {
+        placeholderTime = "";
+        if (time.getHours() == 0) {
+            placeholderTime += "12:";
+            if (time.getMinutes() <= 9) {
+                placeholderTime += "0";
+            }
+            placeholderTime += time.getMinutes();
+            placeholderTime += " AM";
+        }
+        else if (time.getHours() > 11) {
+            placeholderTime += (time.getHours() - 12);
+            placeholderTime += ":";
+            if (time.getMinutes() <= 9) {
+                placeholderTime += "0";
+            }
+            placeholderTime += time.getMinutes();
+            placeholderTime += " PM";
+        }
+        else {
+            placeholderTime += (time.getHours());
+            placeholderTime += ":";
+            if (time.getMinutes() <= 9) {
+                placeholderTime += "0";
+            }
+            placeholderTime += time.getMinutes();
+            placeholderTime += " AM";
+        }
+    });
 
     function syncAnnouncements() {
         sync.announcements = true;
@@ -45,11 +79,11 @@
     <input bind:value={announcementTitle} placeholder="Title"><br>
     <input bind:value={announcementMessage} class="bigInput" type="text" placeholder="Message">
 </form>
-<h4 style:margin-top=10px>Scheduled Events</h4>
-{#if tutorial.enabled}<p>You can modify the upcoming events module by filling out the form fields below. The module will appear when you sync the display window while the form fields contain content, and will count down the time until your event. If the time has already passed, your event will be labelled as currently happening. The module will dissapear when you sync the display window and the form fields contain no content.</p>{/if}
+<h4 style:margin-top=10px>Scheduled Event</h4>
+{#if tutorial.enabled}<p>You can modify the upcoming event module by filling out the form fields below. The module will appear when you sync the display window while the form fields contain content, and will count down the time until your event. If the time has already passed, your event will be labelled as currently happening. The module will dissapear when you sync the display window and the form fields contain no content.</p>{/if}
 <form>
     <input bind:value={eventsTitle} placeholder="Title">
-    <input bind:value={eventsTime} type="time">
+    <input bind:value={eventsTime} type="string" placeholder={placeholderTime}>
 </form>
-{#if tutorial.enabled}<p>Use the 24hr clock to configure the time of your event.</p>{/if}
+<!--{#if tutorial.enabled}<p>Use the 24hr clock to configure the time of your event.</p>{/if}-->
 <p><button class:disabled={sync.announcements} onclick={syncAnnouncements} id="sync">Sync Announcements and Events on Display Windows</button></p>
