@@ -2,11 +2,14 @@
     import { base } from "$app/paths";
     import { page } from "$app/state";
     import { onMount } from "svelte";
-    import { fade, fly, slide } from "svelte/transition"
+    import { blur, fade, fly, slide } from "svelte/transition"
 
     import { proccessEventCity } from "$lib/event.js";
     import { proccessCity } from "$lib/event.js";
     import { checkCity } from "$lib/event.js";
+
+    let screenY = $state(0);
+    let screenX = $state(0);
 
     onMount(async function() {
         console.log("Checking city name...")
@@ -20,6 +23,7 @@
 
     let event = $state([]);
     let announcement = $state([]);
+    let presentation = $state("");
 
     onMount(() => {
         window.addEventListener("storage", (e) => {
@@ -47,6 +51,18 @@
             else {
                 announcement = [localStorage.getItem("jumbotron.announcement.title"), localStorage.getItem("jumbotron.announcement.message")]
                 console.log("Synced announcement");
+            }
+
+            if (localStorage.getItem("jumbotron.googleLink") == "" && localStorage.getItem("jumbotron.pdfLink") == "") {
+                presentation = "";
+                console.log("Cleared presentation");
+            }
+            else if (localStorage.getItem("jumbotron.googleLink") != "") {
+                presentation = localStorage.getItem("jumbotron.googleLink");
+                //setTimeout(() => {document.getElementById("presentation").requestFullscreen();}, 100)
+            }
+            else {
+                presentation = localStorage.getItem("jumbotron.pdfLink");
             }
         }
         console.log("Finished display sync");
@@ -98,7 +114,7 @@
         width: 90%;
         padding: 20px;
         border-radius: 25px;
-        z-index: 1000;
+        z-index: 999;
 
         div {
             padding: 5px;
@@ -121,9 +137,18 @@
         width: 100%;
         height: 100%;
         background-color: rgba(44, 44, 44, 0.863);
+        z-index: 998
+    }
+
+    #presentation {
+        position: fixed;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        z-index: 1000
     }
 </style>
-
+<svelte:window bind:innerHeight={screenY} bind:innerWidth={screenX}></svelte:window>
 <svelte:head>
     <title>{proccessEventCity(page.params.city)}</title>
 </svelte:head>
@@ -134,11 +159,14 @@
 {/if}
 {#if announcement.length > 0}
 <div id="announcement-smoke" transition:fade={{delay: 1000}}></div>
-<div id="announcement" transition:fly={{y:200}}>
+<div id="announcement" transition:fly={{y:400, duration:1500}}>
     <h1>{announcement[0]}</h1>
     <!--<span class="material-symbols-outlined">circle_notifications</span>-->
     <div>
         <p>{announcement[1]}</p>
     </div>
 </div>
+{/if}
+{#if presentation != ""}
+<iframe transition:blur id="presentation" src={presentation} width={screenX-10} height={screenY-10} title="Presentation"></iframe>
 {/if}

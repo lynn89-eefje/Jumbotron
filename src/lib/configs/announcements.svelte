@@ -195,7 +195,7 @@
     <input bind:value={announcementMessage} class="bigInput" type="text" placeholder="Message">
 </form>
 <h4 style:margin-top=10px>Scheduled Event</h4>
-{#if tutorial.enabled}<p>You can modify the upcoming event module by filling out the form fields below. The module will appear when you sync the display window while the form fields contain content, and will count down the time until your event. If the time has already passed, your event will be labelled as currently happening. The module will dissapear when you sync the display window and the form fields contain no content.</p>{/if}
+{#if tutorial.enabled}<p>You can modify the upcoming event module by filling out the form fields below. The module will appear when you sync the display window while the form fields contain content, and will count down the time until your event when 30 minutes or less remain. The module will dissapear when you sync the display window and the form fields contain no content.</p>{/if}
 <form>
     <input bind:value={eventsTitle} type="text" placeholder="Title">
     <input bind:value={eventsTime} type="time" placeholder={placeholderTime}>

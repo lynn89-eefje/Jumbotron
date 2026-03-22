@@ -47,8 +47,14 @@
     function enableGoogle() {
         sync.slides = true;
         document.getElementById("google").disabled = true;
-        localStorage.setItem("jumbotron.googleLink", googleLink);
-        localStorage.setItem("jumbotron.pdfLink", null);
+        if (googleLink.indexOf("<iframe") != -1) {
+            let str = googleLink.split(`"`);
+            localStorage.setItem("jumbotron.googleLink", str[1]);
+        }
+        else {
+            localStorage.setItem("jumbotron.googleLink", googleLink);
+        }
+        localStorage.setItem("jumbotron.pdfLink", "");
         setTimeout(function() {localStorage.setItem("jumbotron.sync", true)}, 2000);
         setTimeout(function() {sync.slides = false; localStorage.setItem("jumbotron.sync", false); document.getElementById("google").disabled = false; mountedEnabled = true;}, 3000)
         
@@ -57,7 +63,7 @@
     function enablePdf() {
         sync.slides = true;
         document.getElementById("pdf").disabled = true;
-        localStorage.setItem("jumbotron.googleLink", null);
+        localStorage.setItem("jumbotron.googleLink", "");
         localStorage.setItem("jumbotron.pdfLink", pdfLink);
         setTimeout(function() {localStorage.setItem("jumbotron.sync", true)}, 2000);
         setTimeout(function() {sync.slides = false; localStorage.setItem("jumbotron.sync", false); document.getElementById("pdf").disabled = false; mountedEnabled = true;}, 3000)
@@ -65,8 +71,8 @@
 
     function unmountDisplay() {
         sync.slides = true;
-        localStorage.setItem("jumbotron.googleLink", null);
-        localStorage.setItem("jumbotron.pdfLink", null);
+        localStorage.setItem("jumbotron.googleLink", "");
+        localStorage.setItem("jumbotron.pdfLink", "");
         mountedEnabled = false;
         setTimeout(function() {localStorage.setItem("jumbotron.sync", true);}, 2000);
         setTimeout(function() {localStorage.setItem("jumbotron.sync", false); sync.slides = false;}, 3000)
@@ -91,7 +97,7 @@
 {#if !mountedEnabled}
 <div transition:slide>
     <h4>Google Slides</h4>
-    {#if tutorial.enabled}<p>To display a Google Slides Presentation on your display windows, go to your Google Slides Presentation, find <i>Publish to Web</i>, copy the link and then paste the link below.</p>{/if}
+    {#if tutorial.enabled}<p>To display a Google Slides Presentation on your display windows, go to your Google Slides Presentation, find <i>Publish to Web</i>, choose Embed, copy and then paste the provided link below. You can also copy the entire embed given by Google.</p>{/if}
     <form> 
         <input bind:value={googleLink} class="bigInput" type="url" placeholder="https://docs.google.com/presentation...">
     </form>

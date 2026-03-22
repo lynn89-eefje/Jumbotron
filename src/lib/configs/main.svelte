@@ -7,7 +7,6 @@
     import { tutorial } from "$lib/sync.svelte.js";
 
     onMount(function() {
-        localStorage.setItem("jumbotron.error", "");
        setTimeout(function() {localStorage.setItem("jumbotron.sync", true);}, 1000);
        setTimeout(function() {localStorage.setItem("jumbotron.sync", false);}, 2000);
     })
@@ -21,6 +20,7 @@
         setTimeout(function() {localStorage.setItem("jumbotron.sync", true)}, 2000)
         setTimeout(function() {sync.enabled = false; document.getElementById("sync").disabled = false; localStorage.setItem("jumbotron.sync", false)}, 3000)
     }
+
 </script>
 <style>
     button {
@@ -32,6 +32,3 @@
 <p><button onclick={openDisplay}>Open New Display Window</button><!--<button onclick={syncDisplay} id="sync" class:disabled={sync.enabled == true}>Sync All Changes to Display Windows</button>--></p>
 <p><i>Note that for the purposes of development, as the theming for Satellite V5 has not been released, the display uses a generic theme and interface.</i></p>
 {#if tutorial.enabled}<p>New windows are not automatically synced. Sync the windows using the buttons for each section below.</p>{/if}
-<h4>Fullscreen</h4>
-{#if tutorial.enabled}<p>Use the button below to enable fullscreen view on your display windows.</p>{/if}
-<p><button>Enable Fullscreen</button></p>
