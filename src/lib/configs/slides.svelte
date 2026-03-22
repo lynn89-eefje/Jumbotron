@@ -12,8 +12,8 @@
     let mountedEnabled = $state(false);
 
     onMount(function() {
-        localStorage.setItem("jumbotron.googleLink", null);
-        localStorage.setItem("jumbotron.pdfLink", null);
+        localStorage.setItem("jumbotron.googleLink", "");
+        localStorage.setItem("jumbotron.pdfLink", "");
     })
 
     //https://docs.google.com/viewer?url=YOUR_PUBLIC_FILE_URL&embedded=true

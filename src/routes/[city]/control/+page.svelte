@@ -31,6 +31,12 @@
             tutorial.enabled = true;
         }
     }
+
+    function forceSync() {
+        localStorage.setItem("jumbotron.sync", true);
+        sync.enabled = true;
+        setTimeout(() => {localStorage.setItem("jumbotron.sync", false); sync.enabled = false;}, 2000)
+    }
     /*
     List of features
     - Set the next event and its time
@@ -73,6 +79,27 @@
     #syncingNotif.active {
         bottom: 10px;
     }
+
+    #sync {
+        position: fixed;
+        top: 10px;
+        right: 25px;
+    }
+
+    .spin {
+        animation: spin 0.6s ease-in-out infinite;
+    }
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg)
+        }
+        50% {
+            transform: rotate(180deg)
+        }
+        100% {
+            transform: rotate(360deg)
+        }
+    }
 </style>
 <div id="syncingNotif" class:active={sync.enabled || sync.announcements || sync.slides}>
     <p>Your display windows are syncing. Hang tight!</p>
@@ -97,3 +124,8 @@
     <h3>Timers</h3>
     <p>Set a timer and project it onto your display.</p>
 </div>
+{#if false}
+<button id="sync" title="Sync Displays" onclick={forceSync}>
+    <span class="material-symbols-outlined" class:spin={sync.enabled || sync.announcements || sync.slides}>sync</span>
+</button>
+{/if}
