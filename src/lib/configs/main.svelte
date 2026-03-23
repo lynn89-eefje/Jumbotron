@@ -38,4 +38,4 @@
 {#if tutorial.enabled}<p>New windows are not automatically synced. Sync the windows using the buttons for each section below.</p>{/if}
 <h4>Fullscreen</h4>
 <p>To enter fullscreen on your display window, press {"<f>"} key in the display.</p>
-<p>To exit fullscreen, press {"<escape"} key in the display.</p>
+<p>To exit fullscreen, press {"<escape>"} key in the display.</p>

@@ -155,7 +155,7 @@
             localStorage.setItem("jumbotron.announcement.title", announcementTitle);
             localStorage.setItem("jumbotron.announcement.message", announcementMessage);
         }
-        else if (!o1) {
+        else if (o1 == false) {
             localStorage.setItem("jumbotron.announcement.title", "");
             localStorage.setItem("jumbotron.announcement.message", "");
         }
@@ -165,7 +165,7 @@
             localStorage.setItem("jumbotron.event.label", formatTimeLabel(eventsTime));
             setTimeout(setAlarm, 1000);
         }
-        else if (!o2) {
+        else if (o2 == false) {
             localStorage.setItem("jumbotron.event.title", "");
             localStorage.setItem("jumbotron.event.time", "");
             localStorage.setItem("jumbotron.event.label", "");

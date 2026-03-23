@@ -14,7 +14,7 @@
 
     let peer;
     let tries = 3;
-    let peerInfo = {};
+    let peerInfo = $state({});
 
     function enableLiveshare() {
         let code = codeGen();
@@ -25,13 +25,16 @@
                 peer.destroy();
                 enableLiveshare();
             }
+            else if (err.type != "peer-unavailable") {
+                window.alert(`PeerJS Error: ${err.type}. You should try restarting liveshare. If this issue persists, copy the error and contact support.`)
+            }
         })
         peer.on("open", () => {
             console.log("Peer has connected");
             //console.log(peer);
             liveshareEnabled = true;
             peerInfo.code = code;
-            console.log(peerInfo);
+            //console.log(peerInfo);
         })
     }
     function destroyLiveshare() {
@@ -39,6 +42,7 @@
         peer = null;
         console.log("Peer destroyed");
         liveshareEnabled = false;
+        peerInfo = {};
     }
     /*
     onMount(() => {
