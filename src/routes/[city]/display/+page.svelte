@@ -21,6 +21,14 @@
        }
     })
 
+    onMount(() => {
+        window.addEventListener("keypress", (e) => {
+            if (e.key == "f") {
+                document.documentElement.requestFullscreen();
+            }
+        })
+    })
+
     let event = $state([]);
     let announcement = $state([]);
     let presentation = $state("");
